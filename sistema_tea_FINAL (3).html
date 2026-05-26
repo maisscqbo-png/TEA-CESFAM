@@ -6,129 +6,180 @@
 <title>Sistema de Registro TEA — CESFAM Dr. Emilio Schaffhauser</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #F5F4F0;
-  --surface: #FFFFFF;
-  --border: #E2E0D8;
-  --border-strong: #C8C5BC;
-  --text-primary: #1A1916;
-  --text-secondary: #6B6860;
-  --text-tertiary: #A09D96;
-  --green: #1A7A58;
-  --green-light: #E4F3EC;
-  --amber: #9A5C10;
-  --amber-light: #FBF0E0;
-  --purple: #4A42A8;
-  --purple-light: #ECEAFB;
-  --red: #C23B22;
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
-  --shadow: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
-  --shadow-md: 0 4px 12px rgba(0,0,0,.08), 0 1px 3px rgba(0,0,0,.05);
-}
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text-primary); min-height: 100vh; }
+:root{--bg:#F5F4F0;--surface:#FFFFFF;--border:#E2E0D8;--border-strong:#C8C5BC;--text-primary:#1A1916;--text-secondary:#6B6860;--text-tertiary:#A09D96;--green:#1A7A58;--green-light:#E4F3EC;--amber:#9A5C10;--amber-light:#FBF0E0;--purple:#4A42A8;--purple-light:#ECEAFB;--blue:#185FA5;--blue-light:#E8F0FE;--red:#C23B22;--radius-sm:6px;--radius-md:10px;--radius-lg:14px;--shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);--shadow-md:0 4px 12px rgba(0,0,0,.08),0 1px 3px rgba(0,0,0,.05);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text-primary);min-height:100vh;}
+.header{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;box-shadow:var(--shadow);}
+.header-logo{width:36px;height:36px;background:linear-gradient(135deg,#1A7A58,#2BA876);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;}
+.header-text strong{font-size:14px;font-weight:600;display:block;line-height:1.2;}
+.header-text span{font-size:11px;color:var(--text-secondary);font-family:'DM Mono',monospace;}
+.main{max-width:720px;margin:0 auto;padding:24px 20px 80px;}
+.screen{display:none;}
+.screen.active{display:block;}
 
-/* HEADER */
-.header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow); }
-.header-logo { width: 36px; height: 36px; background: linear-gradient(135deg, #1A7A58, #2BA876); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
-.header-text strong { font-size: 14px; font-weight: 600; display: block; line-height: 1.2; }
-.header-text span { font-size: 11px; color: var(--text-secondary); font-family: 'DM Mono', monospace; }
+/* BIENVENIDA */
+.bienvenida{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:12px 16px;margin-bottom:1.5rem;font-size:13px;color:var(--text-secondary);box-shadow:var(--shadow);}
+.bienvenida strong{color:var(--text-primary);}
+.selector-title{font-size:20px;font-weight:600;color:var(--text-primary);margin-bottom:.25rem;letter-spacing:-.3px;}
+.selector-sub{font-size:13px;color:var(--text-secondary);margin-bottom:1.25rem;}
+.divider{height:1px;background:var(--border);margin:8px 0 16px;}
 
-/* MAIN */
-.main { max-width: 720px; margin: 0 auto; padding: 32px 20px 60px; }
-
-/* SELECTOR */
-.selector-heading { margin-bottom: 24px; }
-.selector-heading h1 { font-size: 22px; font-weight: 600; letter-spacing: -.3px; }
-.selector-heading p { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
-.sel-card { display: flex; align-items: center; gap: 16px; padding: 18px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); cursor: pointer; margin-bottom: 10px; transition: all .18s; box-shadow: var(--shadow); }
-.sel-card:hover { border-color: var(--hc); box-shadow: var(--shadow-md); transform: translateY(-1px); }
-.sel-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
-.sel-info { flex: 1; }
-.sel-info strong { font-size: 14px; font-weight: 600; display: block; margin-bottom: 3px; }
-.sel-info span { font-size: 12px; color: var(--text-secondary); }
-.sel-arrow { font-size: 20px; color: var(--text-tertiary); }
+/* CARDS SELECTOR */
+.sel-card{display:flex;align-items:center;gap:16px;padding:18px 20px;border:1px solid var(--border);border-radius:var(--radius-lg);cursor:pointer;background:var(--surface);transition:all .18s;margin-bottom:10px;box-shadow:var(--shadow);}
+.sel-card:hover{border-color:var(--hc,var(--green));background:var(--hb,var(--green-light));box-shadow:var(--shadow-md);transform:translateY(-1px);}
+.sel-icon{width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.sel-info{flex:1;}
+.sel-info strong{font-size:14px;font-weight:600;display:block;margin-bottom:3px;}
+.sel-info span{font-size:12px;color:var(--text-secondary);}
+.sel-arrow{font-size:20px;color:var(--text-tertiary);}
 
 /* FORM */
-.form-view { display: none; }
-.back-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-secondary); cursor: pointer; border: none; background: none; padding: 0; margin-bottom: 20px; font-family: 'DM Sans', sans-serif; transition: color .15s; }
-.back-btn:hover { color: var(--text-primary); }
-.form-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; box-shadow: var(--shadow); }
-.badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 20px; margin-bottom: 14px; font-family: 'DM Mono', monospace; letter-spacing: .02em; }
-.badge-green { background: var(--green-light); color: var(--green); }
-.badge-amber { background: var(--amber-light); color: var(--amber); }
-.badge-purple { background: var(--purple-light); color: var(--purple); }
-.fecha-hoy-bar { display: flex; align-items: center; gap: 10px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 9px 14px; margin-bottom: 20px; }
-.fecha-hoy-bar .label { font-size: 12px; color: var(--text-secondary); }
-.fecha-hoy-bar .valor { font-size: 12px; font-weight: 500; font-family: 'DM Mono', monospace; }
-.section-title { font-size: 11px; font-weight: 500; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: .08em; margin: 22px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); font-family: 'DM Mono', monospace; }
-.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.full { grid-column: 1 / -1; }
-.field { display: flex; flex-direction: column; gap: 5px; }
-.field label { font-size: 12px; font-weight: 500; color: var(--text-secondary); }
-.field label .req { color: var(--red); }
-.hint { font-size: 11px; color: var(--text-tertiary); margin-top: 2px; }
-input, select, textarea { width: 100%; padding: 9px 12px; font-size: 13px; font-family: 'DM Sans', sans-serif; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); color: var(--text-primary); transition: border-color .15s, box-shadow .15s; appearance: none; }
-input:focus, select:focus, textarea:focus { outline: none; border-color: var(--focus-c, #1A7A58); box-shadow: 0 0 0 3px var(--focus-s, rgba(26,122,88,.1)); }
-input[readonly] { background: var(--border); color: var(--text-secondary); cursor: not-allowed; }
-textarea { resize: vertical; min-height: 80px; }
-select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B6860' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; cursor: pointer; }
-.age-display { font-size: 13px; font-weight: 500; color: var(--green); background: var(--green-light); padding: 9px 12px; border-radius: var(--radius-sm); text-align: center; font-family: 'DM Mono', monospace; border: 1px solid #C0E4D5; }
-.radio-group { display: flex; gap: 8px; flex-wrap: wrap; }
-.radio-opt { display: flex; align-items: center; gap: 6px; padding: 8px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; font-size: 13px; background: var(--bg); transition: all .15s; }
-.radio-opt input { width: auto; padding: 0; border: none; background: none; accent-color: var(--green); }
-.radio-opt:has(input:checked) { border-color: var(--green); background: var(--green-light); color: var(--green); font-weight: 500; }
-.sector-group { display: flex; gap: 8px; }
-.sector-opt { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 9px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; font-size: 13px; font-weight: 500; background: var(--bg); transition: all .15s; }
-.sector-opt input { width: auto; padding: 0; border: none; background: none; }
-.sector-opt.verde:has(input:checked) { border-color: #3B6D11; background: #EAF3DE; color: #3B6D11; }
-.sector-opt.azul:has(input:checked) { border-color: #185FA5; background: #E6F1FB; color: #185FA5; }
-.sector-opt.amarillo:has(input:checked) { border-color: #9A5C10; background: #FBF0E0; color: #9A5C10; }
-.dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-.sospecha-list { display: flex; flex-direction: column; gap: 7px; }
-.sospecha-opt { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; font-size: 13px; background: var(--bg); transition: all .15s; user-select: none; }
-.sospecha-opt input[type=checkbox] { width: auto; padding: 0; border: none; background: none; margin-top: 1px; flex-shrink: 0; accent-color: var(--green); }
-.sospecha-opt:has(input:checked) { border-color: var(--green); background: var(--green-light); color: var(--green); }
-.sospecha-opt.otro-opt:has(input:checked) { border-color: var(--purple); background: var(--purple-light); color: var(--purple); }
-.otro-input { margin-top: 8px; display: none; }
-.otro-input.visible { display: block; }
-.mchat-group { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.mchat-opt { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; font-size: 13px; background: var(--bg); transition: all .15s; }
-.mchat-opt input { width: auto; padding: 0; border: none; background: none; }
-.mchat-opt.low:has(input:checked) { border-color: #3B6D11; background: #EAF3DE; color: #3B6D11; font-weight: 500; }
-.mchat-opt.mid:has(input:checked) { border-color: #9A5C10; background: #FBF0E0; color: #9A5C10; font-weight: 500; }
-.mchat-opt.high:has(input:checked) { border-color: #C23B22; background: #FBECEA; color: #C23B22; font-weight: 500; }
-.mchat-opt.na:has(input:checked) { border-color: #6B6860; background: #EFEDE8; color: #6B6860; font-weight: 500; }
-.conditional { opacity: .35; pointer-events: none; transition: opacity .2s; }
-.conditional.activo { opacity: 1; pointer-events: auto; }
-.fecha-aidia-wrap { opacity: .35; pointer-events: none; transition: opacity .2s; }
-.fecha-aidia-wrap.activo { opacity: 1; pointer-events: auto; }
-.submit-btn { margin-top: 22px; width: 100%; padding: 12px; font-size: 13px; font-weight: 600; font-family: 'DM Sans', sans-serif; border-radius: var(--radius-md); border: none; color: #fff; cursor: pointer; letter-spacing: .02em; transition: all .15s; }
-.submit-btn.green { background: var(--green); }
-.submit-btn.green:hover { background: #145e43; }
-.submit-btn.amber { background: var(--amber); }
-.submit-btn.amber:hover { background: #7a470c; }
-.submit-btn.purple { background: var(--purple); }
-.submit-btn.purple:hover { background: #383088; }
-.submit-btn:disabled { opacity: .6; cursor: not-allowed; }
-.success { display: none; text-align: center; padding: 16px; border-radius: var(--radius-md); margin-top: 12px; font-size: 14px; font-weight: 500; }
-.sending { display: none; text-align: center; padding: 16px; font-size: 13px; color: var(--text-secondary); }
+.form-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;box-shadow:var(--shadow);}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:4px 10px;border-radius:20px;margin-bottom:14px;font-family:'DM Mono',monospace;letter-spacing:.02em;}
+.badge-green{background:var(--green-light);color:var(--green);}
+.badge-amber{background:var(--amber-light);color:var(--amber);}
+.badge-purple{background:var(--purple-light);color:var(--purple);}
+.badge-blue{background:var(--blue-light);color:var(--blue);}
+.fecha-hoy-bar{display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-md);padding:9px 14px;margin-bottom:20px;}
+.fecha-hoy-bar .label{font-size:12px;color:var(--text-secondary);}
+.fecha-hoy-bar .valor{font-size:12px;font-weight:500;font-family:'DM Mono',monospace;}
+.section-title{font-size:11px;font-weight:500;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.08em;margin:22px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border);font-family:'DM Mono',monospace;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.full{grid-column:1/-1;}
+.field{display:flex;flex-direction:column;gap:5px;}
+.field label{font-size:12px;font-weight:500;color:var(--text-secondary);}
+.field label .req{color:var(--red);}
+.hint{font-size:11px;color:var(--text-tertiary);margin-top:2px;}
+input,select,textarea{width:100%;padding:9px 12px;font-size:13px;font-family:'DM Sans',sans-serif;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg);color:var(--text-primary);transition:border-color .15s,box-shadow .15s;appearance:none;}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(26,122,88,.1);}
+input[readonly]{background:var(--border);color:var(--text-secondary);cursor:not-allowed;}
+input.error{border-color:var(--red)!important;background:#FEF5F5;}
+textarea{resize:vertical;min-height:80px;}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236B6860' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;cursor:pointer;}
+.age-display{font-size:13px;font-weight:500;color:var(--green);background:var(--green-light);padding:9px 12px;border-radius:var(--radius-sm);text-align:center;font-family:'DM Mono',monospace;border:1px solid #C0E4D5;}
+.radio-group{display:flex;gap:8px;flex-wrap:wrap;}
+.radio-opt{display:flex;align-items:center;gap:6px;padding:8px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;font-size:13px;background:var(--bg);transition:all .15s;}
+.radio-opt input{width:auto;padding:0;border:none;background:none;accent-color:var(--green);}
+.radio-opt:has(input:checked){border-color:var(--green);background:var(--green-light);color:var(--green);font-weight:500;}
+.radio-group.error-group .radio-opt{border-color:var(--red);background:#FEF5F5;}
+.sector-group{display:flex;gap:8px;}
+.sector-opt{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px 10px;border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;font-size:13px;font-weight:500;background:var(--bg);transition:all .15s;}
+.sector-opt input{width:auto;padding:0;border:none;background:none;}
+.sector-opt.verde:has(input:checked){border-color:#3B6D11;background:#EAF3DE;color:#3B6D11;}
+.sector-opt.azul:has(input:checked){border-color:#185FA5;background:#E6F1FB;color:#185FA5;}
+.sector-opt.amarillo:has(input:checked){border-color:#9A5C10;background:#FBF0E0;color:#9A5C10;}
+.sector-group.error-group .sector-opt{border-color:var(--red);background:#FEF5F5;}
+.dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.sospecha-list{display:flex;flex-direction:column;gap:7px;}
+.sospecha-opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;font-size:13px;background:var(--bg);transition:all .15s;user-select:none;}
+.sospecha-opt input[type=checkbox]{width:auto;padding:0;border:none;background:none;margin-top:1px;flex-shrink:0;accent-color:var(--green);}
+.sospecha-opt:has(input:checked){border-color:var(--green);background:var(--green-light);color:var(--green);}
+.otro-input{margin-top:8px;display:none;}
+.otro-input.visible{display:block;}
+.mchat-group{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.mchat-opt{display:flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;font-size:13px;background:var(--bg);transition:all .15s;}
+.mchat-opt input{width:auto;padding:0;border:none;background:none;}
+.mchat-opt.low:has(input:checked){border-color:#3B6D11;background:#EAF3DE;color:#3B6D11;font-weight:500;}
+.mchat-opt.mid:has(input:checked){border-color:#9A5C10;background:#FBF0E0;color:#9A5C10;font-weight:500;}
+.mchat-opt.high:has(input:checked){border-color:#C23B22;background:#FBECEA;color:#C23B22;font-weight:500;}
+.mchat-opt.na:has(input:checked){border-color:#6B6860;background:#EFEDE8;color:#6B6860;font-weight:500;}
+.conditional{opacity:.35;pointer-events:none;transition:opacity .2s;}
+.conditional.activo{opacity:1;pointer-events:auto;}
+.fecha-aidia-wrap{opacity:.35;pointer-events:none;transition:opacity .2s;}
+.fecha-aidia-wrap.activo{opacity:1;pointer-events:auto;}
+.otro-rol-wrap{display:none;margin-top:8px;}
+.otro-rol-wrap.visible{display:block;}
+.areas-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.area-block{border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;transition:border-color .15s;}
+.area-block.activo{border-color:var(--blue);}
+.area-header{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;background:var(--bg);user-select:none;transition:background .15s;}
+.area-block.activo .area-header{background:var(--blue-light);}
+.area-header input[type=checkbox]{width:auto;padding:0;border:none;background:none;accent-color:var(--blue);flex-shrink:0;}
+.area-header span{font-size:13px;font-weight:500;}
+.area-block.activo .area-header span{color:var(--blue);}
+.area-detail{display:none;padding:10px 14px;border-top:1px solid var(--border);flex-direction:column;gap:8px;}
+.area-block.activo .area-detail{display:flex;}
+.area-detail textarea{font-size:13px;min-height:70px;border-color:var(--blue);}
+.area-detail input{border-color:var(--blue);}
 
-/* ALERTA URL */
+/* ERRORES */
+.alerta-errores{display:none;background:#FBECEA;border:1px solid var(--red);border-radius:var(--radius-md);padding:12px 16px;margin-bottom:16px;}
+.alerta-errores.visible{display:block;}
+.alerta-errores p{font-size:13px;color:var(--red);font-weight:500;margin-bottom:6px;}
+.alerta-errores ul{padding-left:16px;font-size:12px;color:var(--red);}
+.alerta-errores ul li{margin-bottom:2px;}
+.error-msg{font-size:11px;color:var(--red);margin-top:3px;display:none;}
+.error-msg.visible{display:block;}
 
+/* MODAL */
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.4);z-index:999;align-items:center;justify-content:center;}
+.modal-overlay.visible{display:flex;}
+.modal{background:var(--surface);border-radius:var(--radius-lg);padding:24px;max-width:340px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,.18);}
+.modal h3{font-size:16px;font-weight:600;margin-bottom:8px;}
+.modal p{font-size:13px;color:var(--text-secondary);margin-bottom:20px;line-height:1.5;}
+.modal-btns{display:flex;gap:10px;}
+.modal-btns button{flex:1;padding:10px;border-radius:var(--radius-md);font-size:13px;font-weight:500;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;}
+.btn-cancelar{background:var(--bg);color:var(--text-primary);border:1px solid var(--border)!important;}
+.btn-confirmar-modal{background:var(--green);color:#fff;}
 
-@media(max-width: 520px) {
-  .grid2 { grid-template-columns: 1fr; }
-  .full { grid-column: 1; }
-  .sector-group { flex-direction: column; }
-  .mchat-group { grid-template-columns: 1fr; }
-  .main { padding: 20px 14px 60px; }
+/* BUSCADOR */
+.buscar-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;box-shadow:var(--shadow);}
+.buscar-card h2{font-size:16px;font-weight:600;margin-bottom:6px;}
+.buscar-card p{font-size:13px;color:var(--text-secondary);margin-bottom:20px;}
+.input-row{display:flex;gap:10px;margin-bottom:16px;}
+.input-row input{flex:1;padding:12px 14px;font-size:15px;}
+.btn-buscar{padding:12px 20px;background:var(--green);color:#fff;border:none;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;}
+.btn-buscar:hover{background:#145e43;}
+.resultado-buscar{display:none;border-radius:var(--radius-md);padding:16px;margin-bottom:4px;}
+.resultado-buscar.encontrado{background:var(--green-light);border:1px solid var(--green);}
+.resultado-buscar.no-encontrado{background:#FBECEA;border:1px solid var(--red);}
+.resultado-buscar h4{font-size:14px;font-weight:600;margin-bottom:8px;}
+.resultado-buscar.encontrado h4{color:var(--green);}
+.resultado-buscar.no-encontrado h4{color:var(--red);}
+.resultado-buscar p{font-size:13px;line-height:1.5;}
+.resultado-buscar.encontrado p{color:var(--green);}
+.resultado-buscar.no-encontrado p{color:var(--red);}
+.hojas-list{margin-top:10px;display:flex;flex-direction:column;gap:8px;}
+.hoja-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--radius-sm);font-size:13px;font-weight:500;}
+.hoja-row.green{background:#C8EDD8;color:var(--green);}
+.hoja-row.amber{background:var(--amber-light);color:var(--amber);}
+.hoja-row.purple{background:var(--purple-light);color:var(--purple);}
+.hoja-row.blue{background:var(--blue-light);color:var(--blue);}
+.hoja-row span.fecha{font-size:11px;font-weight:400;margin-left:auto;opacity:.8;}
+
+/* BOTONES */
+.submit-btn{margin-top:22px;width:100%;padding:13px;font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;border-radius:var(--radius-md);border:none;color:#fff;cursor:pointer;transition:all .15s;letter-spacing:.02em;}
+.submit-btn.green{background:var(--green);}.submit-btn.green:hover{background:#145e43;}
+.submit-btn.amber{background:var(--amber);}.submit-btn.amber:hover{background:#7a470c;}
+.submit-btn.purple{background:var(--purple);}.submit-btn.purple:hover{background:#383088;}
+.submit-btn.blue{background:var(--blue);}.submit-btn.blue:hover{background:#0d4a8a;}
+.btn-volver-grande{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin-top:16px;padding:16px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-lg);font-size:15px;font-weight:600;color:var(--text-secondary);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .18s;}
+.btn-volver-grande:hover{border-color:var(--green);color:var(--green);background:var(--green-light);}
+.success{display:none;text-align:center;padding:16px;border-radius:var(--radius-md);margin-top:12px;font-size:14px;font-weight:500;}
+
+@media(max-width:520px){
+  .grid2{grid-template-columns:1fr;}
+  .full{grid-column:1;}
+  .sector-group{flex-direction:column;}
+  .mchat-group{grid-template-columns:1fr;}
+  .areas-grid{grid-template-columns:1fr;}
+  .main{padding:16px 14px 80px;}
 }
 </style>
 </head>
 <body>
+
+<!-- MODAL CONFIRMACIÓN -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h3>¿Confirmar registro?</h3>
+    <p>Estás a punto de guardar el registro con RUT <strong id="modal-rut"></strong>. ¿Los datos son correctos?</p>
+    <div class="modal-btns">
+      <button class="btn-cancelar" onclick="cerrarModal()">← Revisar</button>
+      <button class="btn-confirmar-modal" id="btn-modal-confirmar">Confirmar →</button>
+    </div>
+  </div>
+</div>
 
 <div class="header">
   <div class="header-logo">🧩</div>
@@ -140,393 +191,500 @@ select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.o
 
 <div class="main">
 
-  <!-- ═══════ SELECTOR ═══════ -->
-  <div id="selector-view">
-    <div class="selector-heading">
-      <h1>Sistema de Registro TEA</h1>
-      <p>Selecciona el tipo de formulario que deseas completar</p>
-    </div>
-    <div class="sel-card" style="--hc:#1A7A58" onclick="goTo('f0')">
-      <div class="sel-icon" style="background:#E4F3EC">✅</div>
-      <div class="sel-info"><strong>Diagnóstico confirmado</strong><span>Pacientes con TEA certificado en AVIS</span></div>
-      <span class="sel-arrow">›</span>
-    </div>
-    <div class="sel-card" style="--hc:#9A5C10" onclick="goTo('f1')">
-      <div class="sel-icon" style="background:#FBF0E0">🔍</div>
-      <div class="sel-info"><strong>Sospecha diagnóstica</strong><span>Pacientes en proceso de evaluación</span></div>
-      <span class="sel-arrow">›</span>
-    </div>
-    <div class="sel-card" style="--hc:#4A42A8" onclick="goTo('f2')">
-      <div class="sel-icon" style="background:#ECEAFB">📋</div>
-      <div class="sel-info"><strong>Hoja de Referente TEA</strong><span>Registro para el sistema de referencia comunal</span></div>
-      <span class="sel-arrow">›</span>
-    </div>
-  </div>
+<!-- ══════════════ INICIO ══════════════ -->
+<div id="s-inicio" class="screen active">
+  <div class="bienvenida">📅 <strong id="fecha-bienvenida"></strong> — Sistema de Registro TEA</div>
+  <div class="selector-title">Sistema de Registro TEA</div>
+  <div class="selector-sub">Selecciona una opción para comenzar</div>
 
-  <!-- ═══════ FORM 1: DIAGNÓSTICO ═══════ -->
-  <div id="f0" class="form-view">
-    <button class="back-btn" onclick="goBack()">‹ Volver al inicio</button>
-    <div class="form-card" style="--focus-c:#1A7A58;--focus-s:rgba(26,122,88,.1)">
-      <span class="badge badge-green">● TEA CONFIRMADO</span>
-      <div class="fecha-hoy-bar"><span class="label">📅 Fecha de registro:</span><span class="valor fecha-hoy"></span></div>
-      <div class="section-title">Identificación del paciente</div>
-      <div class="grid2">
-        <div class="field full"><label>Nombre completo <span class="req">*</span></label><input type="text" id="d-nombre" placeholder="Ej: Juan Pérez González"></div>
-        <div class="field"><label>RUT <span class="req">*</span></label><input type="text" id="d-rut" placeholder="12345678-9" oninput="formatRutSinPuntos(this)"></div>
-        <div class="field"><label>Teléfono de contacto</label><input type="tel" id="d-telefono" placeholder="+56 9 1234 5678"></div>
-        <div class="field"><label>Fecha de nacimiento <span class="req">*</span></label><input type="date" id="dob1" oninput="calcAge('dob1','age1')"></div>
-        <div class="field"><label>Edad</label><div class="age-display" id="age1">— años</div><span class="hint">Se calcula automáticamente</span></div>
-        <div class="field full"><label>Dirección</label><input type="text" id="d-direccion" placeholder="Calle, número, depto"></div>
-        <div class="field full"><label>Sector <span class="req">*</span></label>
-          <div class="sector-group">
-            <label class="sector-opt verde"><input type="radio" name="sector1" value="Verde"><span class="dot" style="background:#639922"></span> Verde</label>
-            <label class="sector-opt azul"><input type="radio" name="sector1" value="Azul"><span class="dot" style="background:#378ADD"></span> Azul</label>
-            <label class="sector-opt amarillo"><input type="radio" name="sector1" value="Amarillo"><span class="dot" style="background:#EF9F27"></span> Amarillo</label>
-          </div>
-        </div>
-        <div class="field full"><label>Nombre de quien deriva <span class="req">*</span></label><input type="text" id="d-deriva" placeholder="Ej: Ana Martínez"></div>
-      </div>
-      <div class="section-title">Estado clínico</div>
-      <div class="grid2">
-        <div class="field"><label>Diagnóstico confirmado (certificado en AVIS) <span class="req">*</span></label>
-          <div class="radio-group"><label class="radio-opt"><input type="radio" name="diag1" value="Sí"> Sí</label><label class="radio-opt"><input type="radio" name="diag1" value="No"> No</label></div>
-        </div>
-        <div class="field"><label>Controles al día <span class="req">*</span></label>
-          <div class="radio-group"><label class="radio-opt"><input type="radio" name="ctrl1" value="Sí"> Sí</label><label class="radio-opt"><input type="radio" name="ctrl1" value="No"> No</label></div>
-        </div>
-        <div class="field"><label>Derivación a sala AIDIA <span class="req">*</span></label>
-          <div class="radio-group"><label class="radio-opt"><input type="radio" name="aidia1" value="Sí" onchange="toggleAidia(true)"> Sí</label><label class="radio-opt"><input type="radio" name="aidia1" value="No" onchange="toggleAidia(false)"> No</label></div>
-        </div>
-        <div class="field fecha-aidia-wrap" id="fecha-aidia-wrap"><label>Fecha de derivación a sala AIDIA</label><input type="date" id="fecha-aidia"></div>
-      </div>
-      <button class="submit-btn green" id="btn-diag" onclick="enviarDiagnostico()">Registrar paciente →</button>
-      <div class="sending" id="sending-diag">⏳ Guardando en Google Sheets...</div>
-    </div>
-    <div class="success" id="ok0" style="color:var(--green);background:var(--green-light)">✅ Paciente registrado correctamente en Google Sheets</div>
+  <div class="sel-card" style="--hc:var(--green);--hb:var(--green-light)" onclick="goScreen('s-buscar')">
+    <div class="sel-icon" style="background:var(--green-light)">🔎</div>
+    <div class="sel-info"><strong>Buscar paciente por RUT</strong><span>Consulta en qué hojas está registrado un paciente</span></div>
+    <span class="sel-arrow">›</span>
   </div>
-
-  <!-- ═══════ FORM 2: SOSPECHA ═══════ -->
-  <div id="f1" class="form-view">
-    <button class="back-btn" onclick="goBack()">‹ Volver al inicio</button>
-    <div class="form-card" style="--focus-c:#9A5C10;--focus-s:rgba(154,92,16,.1)">
-      <span class="badge badge-amber">◐ SOSPECHA DIAGNÓSTICA</span>
-      <div class="fecha-hoy-bar"><span class="label">📅 Fecha de registro:</span><span class="valor fecha-hoy"></span></div>
-      <div class="section-title">Identificación del paciente</div>
-      <div class="grid2">
-        <div class="field full"><label>Nombre completo <span class="req">*</span></label><input type="text" id="s-nombre" placeholder="Ej: María López Rojas"></div>
-        <div class="field"><label>RUT <span class="req">*</span></label><input type="text" id="s-rut" placeholder="12345678-9" oninput="formatRutSinPuntos(this)"></div>
-        <div class="field"><label>Teléfono de contacto</label><input type="tel" id="s-telefono" placeholder="+56 9 1234 5678"></div>
-        <div class="field"><label>Fecha de nacimiento <span class="req">*</span></label><input type="date" id="dob2" oninput="calcAge('dob2','age2')"></div>
-        <div class="field"><label>Edad</label><div class="age-display" id="age2">— años</div><span class="hint">Se calcula automáticamente</span></div>
-        <div class="field full"><label>Dirección</label><input type="text" id="s-direccion" placeholder="Calle, número, depto"></div>
-        <div class="field full"><label>Sector <span class="req">*</span></label>
-          <div class="sector-group">
-            <label class="sector-opt verde"><input type="radio" name="sector2" value="Verde"><span class="dot" style="background:#639922"></span> Verde</label>
-            <label class="sector-opt azul"><input type="radio" name="sector2" value="Azul"><span class="dot" style="background:#378ADD"></span> Azul</label>
-            <label class="sector-opt amarillo"><input type="radio" name="sector2" value="Amarillo"><span class="dot" style="background:#EF9F27"></span> Amarillo</label>
-          </div>
-        </div>
-        <div class="field full"><label>Nombre de quien deriva <span class="req">*</span></label><input type="text" id="s-deriva" placeholder="Ej: Ana Martínez"></div>
-      </div>
-      <div class="section-title">Evaluación clínica</div>
-      <div class="grid2">
-        <div class="field full">
-          <label>Motivo de sospecha <span class="req">*</span></label>
-          <span class="hint" style="margin-bottom:6px">Puede marcar más de una opción</span>
-          <div class="sospecha-list">
-            <label class="sospecha-opt"><input type="checkbox" class="motivo" value="Dificultades en interacción social"><span>Dificultades en interacción social</span></label>
-            <label class="sospecha-opt"><input type="checkbox" class="motivo" value="Alteraciones del lenguaje y comunicación"><span>Alteraciones del lenguaje y comunicación</span></label>
-            <label class="sospecha-opt"><input type="checkbox" class="motivo" value="Conductas repetitivas y rigidez"><span>Conductas repetitivas y rigidez</span></label>
-            <label class="sospecha-opt"><input type="checkbox" class="motivo" value="Alteraciones sensoriales"><span>Alteraciones sensoriales</span></label>
-            <label class="sospecha-opt otro-opt"><input type="checkbox" class="motivo" value="Otro" id="chk-otro" onchange="toggleOtro(this)"><span>Otro</span></label>
-            <div class="otro-input" id="otro-text-wrap"><input type="text" placeholder="Especifique el motivo..." id="otro-text"></div>
-          </div>
-        </div>
-        <div class="field"><label>Controles al día <span class="req">*</span></label>
-          <div class="radio-group"><label class="radio-opt"><input type="radio" name="ctrl2" value="Sí"> Sí</label><label class="radio-opt"><input type="radio" name="ctrl2" value="No"> No</label></div>
-        </div>
-        <div class="field"><label>Fecha de derivación</label><input type="date" id="s-fderiva"></div>
-      </div>
-      <div class="section-title">M-CHAT — Resultado de tamizaje</div>
-      <div class="mchat-group">
-        <label class="mchat-opt low"><input type="radio" name="mchat" value="Riesgo bajo"> Riesgo bajo</label>
-        <label class="mchat-opt mid"><input type="radio" name="mchat" value="Riesgo medio"> Riesgo medio</label>
-        <label class="mchat-opt high"><input type="radio" name="mchat" value="Riesgo alto"> Riesgo alto</label>
-        <label class="mchat-opt na"><input type="radio" name="mchat" value="No aplica"> No aplica</label>
-      </div>
-      <button class="submit-btn amber" id="btn-sosp" onclick="enviarSospecha()">Registrar paciente →</button>
-      <div class="sending" id="sending-sosp">⏳ Guardando en Google Sheets...</div>
-    </div>
-    <div class="success" id="ok1" style="color:var(--amber);background:var(--amber-light)">✅ Paciente registrado correctamente en Google Sheets</div>
+  <div class="divider"></div>
+  <div class="sel-card" style="--hc:var(--green);--hb:var(--green-light)" onclick="goScreen('s-f0')">
+    <div class="sel-icon" style="background:var(--green-light)">✅</div>
+    <div class="sel-info"><strong>Diagnóstico confirmado</strong><span>Pacientes con TEA certificado en AVIS</span></div>
+    <span class="sel-arrow">›</span>
   </div>
-
-  <!-- ═══════ FORM 3: REFERENTE ═══════ -->
-  <div id="f2" class="form-view">
-    <button class="back-btn" onclick="goBack()">‹ Volver al inicio</button>
-    <div class="form-card" style="--focus-c:#4A42A8;--focus-s:rgba(74,66,168,.1)">
-      <span class="badge badge-purple">◈ HOJA DE REFERENTE TEA</span>
-      <div class="fecha-hoy-bar"><span class="label">📅 Fecha de registro:</span><span class="valor fecha-hoy"></span></div>
-      <div class="section-title">Establecimiento</div>
-      <div class="grid2">
-        <div class="field"><label>Servicio de salud</label><input type="text" value="SS COQUIMBO" readonly></div>
-        <div class="field"><label>Comuna</label><input type="text" value="La Serena" readonly></div>
-        <div class="field full"><label>Establecimiento</label><input type="text" value="CESFAM Dr. Emilio Schaffhauser" readonly></div>
-      </div>
-      <div class="section-title">Datos del paciente</div>
-      <div class="grid2">
-        <div class="field"><label>RUT <span class="req">*</span></label><input type="text" id="r-rut" placeholder="12345678-9" oninput="formatRutSinPuntos(this)"><span class="hint">Sin puntos, con guión</span></div>
-        <div class="field"><label>Edad <span class="req">*</span></label><input type="number" id="r-edad" min="0" max="120" placeholder="Ej: 5"></div>
-        <div class="field"><label>Sexo <span class="req">*</span></label>
-          <div class="radio-group"><label class="radio-opt"><input type="radio" name="sexo" value="Hombre"> Hombre</label><label class="radio-opt"><input type="radio" name="sexo" value="Mujer"> Mujer</label></div>
-        </div>
-        <div class="field"><label>Es usuario/a de PIE <span class="req">*</span></label>
-          <div class="radio-group"><label class="radio-opt"><input type="radio" name="pie" value="Sí"> Sí</label><label class="radio-opt"><input type="radio" name="pie" value="No"> No</label></div>
-        </div>
-        <div class="field"><label>Lugar de sospecha <span class="req">*</span></label>
-          <select id="r-lugar"><option value="" disabled selected>Seleccionar...</option><option value="CESFAM Dr. Emilio Schaffhauser">CESFAM Dr. Emilio Schaffhauser</option><option value="Escolar">Escolar</option></select>
-        </div>
-        <div class="field"><label>Fecha de inicio de evaluación por sospecha</label><input type="date" id="r-fechaeval"></div>
-      </div>
-      <div class="section-title">Diagnóstico</div>
-      <div class="grid2">
-        <div class="field"><label>Se confirma autismo <span class="req">*</span></label>
-          <div class="radio-group"><label class="radio-opt"><input type="radio" name="conf-autismo" value="Sí" onchange="toggle('fecha-autismo',true)"> Sí</label><label class="radio-opt"><input type="radio" name="conf-autismo" value="No" onchange="toggle('fecha-autismo',false)"> No</label></div>
-        </div>
-        <div class="field conditional" id="fecha-autismo"><label>Fecha de confirmación de autismo</label><input type="date" id="r-fechaaut"></div>
-        <div class="field"><label>Se confirma otro Dg del neurodesarrollo <span class="req">*</span></label>
-          <div class="radio-group"><label class="radio-opt"><input type="radio" name="conf-otro-dg" value="Sí" onchange="toggle('fecha-otro-dg',true)"> Sí</label><label class="radio-opt"><input type="radio" name="conf-otro-dg" value="No" onchange="toggle('fecha-otro-dg',false)"> No</label></div>
-        </div>
-        <div class="field conditional" id="fecha-otro-dg"><label>Fecha de confirmación de otro Dg</label><input type="date" id="r-fechaotrodg"></div>
-      </div>
-      <div class="section-title">Derivación y tratamiento</div>
-      <div class="grid2">
-        <div class="field full"><label>Se deriva a nivel de especialidad por sospecha diagnóstica <span class="req">*</span></label>
-          <div class="radio-group"><label class="radio-opt"><input type="radio" name="deriva-esp" value="Sí"> Sí</label><label class="radio-opt"><input type="radio" name="deriva-esp" value="No"> No</label></div>
-        </div>
-        <div class="field"><label>Dispositivo para el tratamiento <span class="req">*</span></label>
-          <div class="radio-group"><label class="radio-opt"><input type="radio" name="dispositivo" value="Programa AIDIA" onchange="toggleOtroDisp(false)"> Programa AIDIA</label><label class="radio-opt"><input type="radio" name="dispositivo" value="Otro" onchange="toggleOtroDisp(true)"> Otro dispositivo</label></div>
-        </div>
-        <div class="field conditional" id="otro-disp-wrap"><label>Especifique dispositivo</label><input type="text" id="r-otrodisp" placeholder="Nombre del dispositivo..."></div>
-        <div class="field"><label>Fecha de derivación al dispositivo</label><input type="date" id="r-fechadisp"></div>
-        <div class="field"><label>Se indica tratamiento farmacológico <span class="req">*</span></label>
-          <div class="radio-group"><label class="radio-opt"><input type="radio" name="farmaco" value="Sí"> Sí</label><label class="radio-opt"><input type="radio" name="farmaco" value="No"> No</label></div>
-        </div>
-      </div>
-      <div class="section-title">Observación</div>
-      <div class="field"><textarea id="r-obs" placeholder="Escriba aquí cualquier observación relevante..."></textarea></div>
-      <button class="submit-btn purple" id="btn-ref" onclick="enviarReferente()">Registrar referente →</button>
-      <div class="sending" id="sending-ref">⏳ Guardando en Google Sheets...</div>
-    </div>
-    <div class="success" id="ok2" style="color:var(--purple);background:var(--purple-light)">✅ Referente registrado correctamente en Google Sheets</div>
+  <div class="sel-card" style="--hc:var(--amber);--hb:var(--amber-light)" onclick="goScreen('s-f1')">
+    <div class="sel-icon" style="background:var(--amber-light)">🔍</div>
+    <div class="sel-info"><strong>Sospecha diagnóstica</strong><span>Pacientes en proceso de evaluación</span></div>
+    <span class="sel-arrow">›</span>
   </div>
-
+  <div class="sel-card" style="--hc:var(--purple);--hb:var(--purple-light)" onclick="goScreen('s-f2')">
+    <div class="sel-icon" style="background:var(--purple-light)">📋</div>
+    <div class="sel-info"><strong>Hoja de Referente TEA</strong><span>Registro para el sistema de referencia comunal</span></div>
+    <span class="sel-arrow">›</span>
+  </div>
+  <div class="sel-card" style="--hc:var(--blue);--hb:var(--blue-light)" onclick="goScreen('s-f3')">
+    <div class="sel-icon" style="background:var(--blue-light)">🔵</div>
+    <div class="sel-info"><strong>Aporte profesional</strong><span>Registro de hallazgos por área clínica</span></div>
+    <span class="sel-arrow">›</span>
+  </div>
 </div>
 
+<!-- ══════════════ BUSCADOR ══════════════ -->
+<div id="s-buscar" class="screen">
+  <div class="buscar-card">
+    <h2>🔎 Buscar paciente por RUT</h2>
+    <p>Ingresa el RUT para ver en qué hojas del sistema está registrado el paciente.</p>
+    <div class="input-row">
+      <input type="text" id="rut-buscar" placeholder="12345678-9" oninput="formatRut(this)" onkeydown="if(event.key==='Enter')buscar()">
+      <button class="btn-buscar" onclick="buscar()">Buscar</button>
+    </div>
+    <div class="resultado-buscar encontrado" id="res-ok">
+      <h4>✅ Paciente encontrado</h4>
+      <p>El RUT <strong id="rut-ok"></strong> aparece en las siguientes hojas:</p>
+      <div class="hojas-list" id="hojas-list"></div>
+    </div>
+    <div class="resultado-buscar no-encontrado" id="res-no">
+      <h4>❌ Paciente no registrado</h4>
+      <p>El RUT <strong id="rut-no"></strong> no tiene registros en ninguna hoja del sistema.</p>
+    </div>
+  </div>
+  <button class="btn-volver-grande" onclick="goInicio()">🏠 Volver al inicio</button>
+</div>
+
+<!-- ══════════════ FORM 1: DIAGNÓSTICO ══════════════ -->
+<div id="s-f0" class="screen">
+  <div class="form-card">
+    <span class="badge badge-green">● TEA CONFIRMADO</span>
+    <div class="fecha-hoy-bar"><span class="label">📅 Fecha de registro:</span><span class="valor fecha-hoy"></span></div>
+    <div class="alerta-errores" id="ae-f0"><p>⚠️ Por favor completa los campos obligatorios:</p><ul id="le-f0"></ul></div>
+    <div class="section-title">Identificación del paciente</div>
+    <div class="grid2">
+      <div class="field"><label>RUT <span class="req">*</span></label><input type="text" id="d-rut" placeholder="12345678-9" oninput="formatRut(this)"><span class="error-msg" id="err-d-rut">Campo obligatorio</span><span class="hint">Sin puntos, con guión</span></div>
+      <div class="field"><label>Fecha de nacimiento <span class="req">*</span></label><input type="date" id="d-dob" oninput="calcAge('d-dob','d-age')"><span class="error-msg" id="err-d-dob">Campo obligatorio</span></div>
+      <div class="field"><label>Edad</label><div class="age-display" id="d-age">— años</div><span class="hint">Se calcula automáticamente</span></div>
+      <div class="field"><label>Teléfono de contacto</label><input type="tel" id="d-tel" placeholder="+56 9 1234 5678"></div>
+      <div class="field full"><label>Dirección</label><input type="text" id="d-dir" placeholder="Calle, número, depto"></div>
+      <div class="field full"><label>Sector <span class="req">*</span></label>
+        <div class="sector-group" id="d-sector-g">
+          <label class="sector-opt verde"><input type="radio" name="d-sector" value="Verde"><span class="dot" style="background:#639922"></span> Verde</label>
+          <label class="sector-opt azul"><input type="radio" name="d-sector" value="Azul"><span class="dot" style="background:#378ADD"></span> Azul</label>
+          <label class="sector-opt amarillo"><input type="radio" name="d-sector" value="Amarillo"><span class="dot" style="background:#EF9F27"></span> Amarillo</label>
+        </div>
+        <span class="error-msg" id="err-d-sector">Selecciona un sector</span>
+      </div>
+      <div class="field full"><label>Nombre de quien deriva <span class="req">*</span></label><input type="text" id="d-deriva" placeholder="Ej: Ana Martínez"><span class="error-msg" id="err-d-deriva">Campo obligatorio</span></div>
+    </div>
+    <div class="section-title">Estado clínico</div>
+    <div class="grid2">
+      <div class="field"><label>Diagnóstico confirmado (certificado en AVIS) <span class="req">*</span></label>
+        <div class="radio-group" id="d-diag-g"><label class="radio-opt"><input type="radio" name="d-diag" value="Sí"> Sí</label><label class="radio-opt"><input type="radio" name="d-diag" value="No"> No</label></div>
+        <span class="error-msg" id="err-d-diag">Selecciona una opción</span>
+      </div>
+      <div class="field"><label>Controles al día <span class="req">*</span></label>
+        <div class="radio-group" id="d-ctrl-g"><label class="radio-opt"><input type="radio" name="d-ctrl" value="Sí"> Sí</label><label class="radio-opt"><input type="radio" name="d-ctrl" value="No"> No</label></div>
+        <span class="error-msg" id="err-d-ctrl">Selecciona una opción</span>
+      </div>
+      <div class="field"><label>Derivación a sala AIDIA <span class="req">*</span></label>
+        <div class="radio-group" id="d-aidia-g">
+          <label class="radio-opt"><input type="radio" name="d-aidia" value="Sí" onchange="toggleCond('d-aidia-fecha',true)"> Sí</label>
+          <label class="radio-opt"><input type="radio" name="d-aidia" value="No" onchange="toggleCond('d-aidia-fecha',false)"> No</label>
+        </div>
+        <span class="error-msg" id="err-d-aidia">Selecciona una opción</span>
+      </div>
+      <div class="field fecha-aidia-wrap" id="d-aidia-fecha"><label>Fecha de derivación a sala AIDIA</label><input type="date" id="d-fecha-aidia"></div>
+    </div>
+    <button class="submit-btn green" onclick="validar('f0')">Registrar paciente →</button>
+    <div class="success" id="ok-f0" style="color:var(--green);background:var(--green-light)">✅ Paciente registrado correctamente en Google Sheets</div>
+  </div>
+  <button class="btn-volver-grande" onclick="goInicio()">🏠 Volver al inicio</button>
+</div>
+
+<!-- ══════════════ FORM 2: SOSPECHA ══════════════ -->
+<div id="s-f1" class="screen">
+  <div class="form-card">
+    <span class="badge badge-amber">◐ SOSPECHA DIAGNÓSTICA</span>
+    <div class="fecha-hoy-bar"><span class="label">📅 Fecha de registro:</span><span class="valor fecha-hoy"></span></div>
+    <div class="alerta-errores" id="ae-f1"><p>⚠️ Por favor completa los campos obligatorios:</p><ul id="le-f1"></ul></div>
+    <div class="section-title">Identificación del paciente</div>
+    <div class="grid2">
+      <div class="field"><label>RUT <span class="req">*</span></label><input type="text" id="s-rut" placeholder="12345678-9" oninput="formatRut(this)"><span class="error-msg" id="err-s-rut">Campo obligatorio</span><span class="hint">Sin puntos, con guión</span></div>
+      <div class="field"><label>Fecha de nacimiento <span class="req">*</span></label><input type="date" id="s-dob" oninput="calcAge('s-dob','s-age')"><span class="error-msg" id="err-s-dob">Campo obligatorio</span></div>
+      <div class="field"><label>Edad</label><div class="age-display" id="s-age">— años</div><span class="hint">Se calcula automáticamente</span></div>
+      <div class="field"><label>Teléfono de contacto</label><input type="tel" id="s-tel" placeholder="+56 9 1234 5678"></div>
+      <div class="field full"><label>Dirección</label><input type="text" id="s-dir" placeholder="Calle, número, depto"></div>
+      <div class="field full"><label>Sector <span class="req">*</span></label>
+        <div class="sector-group" id="s-sector-g">
+          <label class="sector-opt verde"><input type="radio" name="s-sector" value="Verde"><span class="dot" style="background:#639922"></span> Verde</label>
+          <label class="sector-opt azul"><input type="radio" name="s-sector" value="Azul"><span class="dot" style="background:#378ADD"></span> Azul</label>
+          <label class="sector-opt amarillo"><input type="radio" name="s-sector" value="Amarillo"><span class="dot" style="background:#EF9F27"></span> Amarillo</label>
+        </div>
+        <span class="error-msg" id="err-s-sector">Selecciona un sector</span>
+      </div>
+      <div class="field full"><label>Nombre de quien deriva <span class="req">*</span></label><input type="text" id="s-deriva" placeholder="Ej: Ana Martínez"><span class="error-msg" id="err-s-deriva">Campo obligatorio</span></div>
+    </div>
+    <div class="section-title">Evaluación clínica</div>
+    <div class="grid2">
+      <div class="field full">
+        <label>Motivo de sospecha <span class="req">*</span></label>
+        <span class="hint" style="margin-bottom:6px">Puede marcar más de una opción</span>
+        <div class="sospecha-list" id="s-motivos-g">
+          <label class="sospecha-opt"><input type="checkbox" class="s-motivo" value="Dificultades en interacción social"><span>Dificultades en interacción social</span></label>
+          <label class="sospecha-opt"><input type="checkbox" class="s-motivo" value="Alteraciones del lenguaje y comunicación"><span>Alteraciones del lenguaje y comunicación</span></label>
+          <label class="sospecha-opt"><input type="checkbox" class="s-motivo" value="Conductas repetitivas y rigidez"><span>Conductas repetitivas y rigidez</span></label>
+          <label class="sospecha-opt"><input type="checkbox" class="s-motivo" value="Alteraciones sensoriales"><span>Alteraciones sensoriales</span></label>
+          <label class="sospecha-opt"><input type="checkbox" class="s-motivo" value="Otro" id="s-chk-otro" onchange="toggleOtroS(this)"><span>Otro</span></label>
+          <div class="otro-input" id="s-otro-wrap"><input type="text" id="s-otro-txt" placeholder="Especifique..."></div>
+        </div>
+        <span class="error-msg" id="err-s-motivo">Selecciona al menos un motivo</span>
+      </div>
+      <div class="field"><label>Controles al día <span class="req">*</span></label>
+        <div class="radio-group" id="s-ctrl-g"><label class="radio-opt"><input type="radio" name="s-ctrl" value="Sí"> Sí</label><label class="radio-opt"><input type="radio" name="s-ctrl" value="No"> No</label></div>
+        <span class="error-msg" id="err-s-ctrl">Selecciona una opción</span>
+      </div>
+      <div class="field"><label>Fecha de derivación</label><input type="date" id="s-fderiva"></div>
+    </div>
+    <div class="section-title">M-CHAT — Resultado de tamizaje</div>
+    <div class="mchat-group">
+      <label class="mchat-opt low"><input type="radio" name="s-mchat" value="Riesgo bajo"> Riesgo bajo</label>
+      <label class="mchat-opt mid"><input type="radio" name="s-mchat" value="Riesgo medio"> Riesgo medio</label>
+      <label class="mchat-opt high"><input type="radio" name="s-mchat" value="Riesgo alto"> Riesgo alto</label>
+      <label class="mchat-opt na"><input type="radio" name="s-mchat" value="No aplica"> No aplica</label>
+    </div>
+    <button class="submit-btn amber" onclick="validar('f1')">Registrar paciente →</button>
+    <div class="success" id="ok-f1" style="color:var(--amber);background:var(--amber-light)">✅ Paciente registrado correctamente en Google Sheets</div>
+  </div>
+  <button class="btn-volver-grande" onclick="goInicio()">🏠 Volver al inicio</button>
+</div>
+
+<!-- ══════════════ FORM 3: REFERENTE ══════════════ -->
+<div id="s-f2" class="screen">
+  <div class="form-card">
+    <span class="badge badge-purple">◈ HOJA DE REFERENTE TEA</span>
+    <div class="fecha-hoy-bar"><span class="label">📅 Fecha de registro:</span><span class="valor fecha-hoy"></span></div>
+    <div class="alerta-errores" id="ae-f2"><p>⚠️ Por favor completa los campos obligatorios:</p><ul id="le-f2"></ul></div>
+    <div class="section-title">Establecimiento</div>
+    <div class="grid2">
+      <div class="field"><label>Servicio de salud</label><input type="text" value="SS COQUIMBO" readonly></div>
+      <div class="field"><label>Comuna</label><input type="text" value="La Serena" readonly></div>
+      <div class="field full"><label>Establecimiento</label><input type="text" value="CESFAM Dr. Emilio Schaffhauser" readonly></div>
+    </div>
+    <div class="section-title">Datos del paciente</div>
+    <div class="grid2">
+      <div class="field"><label>RUT <span class="req">*</span></label><input type="text" id="r-rut" placeholder="12345678-9" oninput="formatRut(this)"><span class="error-msg" id="err-r-rut">Campo obligatorio</span><span class="hint">Sin puntos, con guión</span></div>
+      <div class="field"><label>Edad <span class="req">*</span></label><input type="number" id="r-edad" min="0" max="120" placeholder="Ej: 5"><span class="error-msg" id="err-r-edad">Campo obligatorio</span></div>
+      <div class="field"><label>Sexo <span class="req">*</span></label>
+        <div class="radio-group" id="r-sexo-g"><label class="radio-opt"><input type="radio" name="r-sexo" value="Hombre"> Hombre</label><label class="radio-opt"><input type="radio" name="r-sexo" value="Mujer"> Mujer</label></div>
+        <span class="error-msg" id="err-r-sexo">Selecciona una opción</span>
+      </div>
+      <div class="field"><label>Es usuario/a de PIE <span class="req">*</span></label>
+        <div class="radio-group" id="r-pie-g"><label class="radio-opt"><input type="radio" name="r-pie" value="Sí"> Sí</label><label class="radio-opt"><input type="radio" name="r-pie" value="No"> No</label></div>
+        <span class="error-msg" id="err-r-pie">Selecciona una opción</span>
+      </div>
+      <div class="field"><label>Lugar de sospecha <span class="req">*</span></label>
+        <select id="r-lugar"><option value="" disabled selected>Seleccionar...</option><option>CESFAM Dr. Emilio Schaffhauser</option><option>Escolar</option></select>
+        <span class="error-msg" id="err-r-lugar">Selecciona una opción</span>
+      </div>
+      <div class="field"><label>Fecha de inicio de evaluación por sospecha</label><input type="date" id="r-fechaeval"></div>
+    </div>
+    <div class="section-title">Diagnóstico</div>
+    <div class="grid2">
+      <div class="field"><label>Se confirma autismo <span class="req">*</span></label>
+        <div class="radio-group" id="r-aut-g">
+          <label class="radio-opt"><input type="radio" name="r-autismo" value="Sí" onchange="toggleCond('r-fecha-aut',true)"> Sí</label>
+          <label class="radio-opt"><input type="radio" name="r-autismo" value="No" onchange="toggleCond('r-fecha-aut',false)"> No</label>
+        </div>
+        <span class="error-msg" id="err-r-aut">Selecciona una opción</span>
+      </div>
+      <div class="field conditional" id="r-fecha-aut"><label>Fecha de confirmación de autismo</label><input type="date" id="r-fechaaut"></div>
+      <div class="field"><label>Se confirma otro Dg del neurodesarrollo <span class="req">*</span></label>
+        <div class="radio-group" id="r-otrodg-g">
+          <label class="radio-opt"><input type="radio" name="r-otrodg" value="Sí" onchange="toggleCond('r-fecha-otrodg',true)"> Sí</label>
+          <label class="radio-opt"><input type="radio" name="r-otrodg" value="No" onchange="toggleCond('r-fecha-otrodg',false)"> No</label>
+        </div>
+        <span class="error-msg" id="err-r-otrodg">Selecciona una opción</span>
+      </div>
+      <div class="field conditional" id="r-fecha-otrodg"><label>Fecha de confirmación de otro Dg</label><input type="date" id="r-fechaotrodg"></div>
+    </div>
+    <div class="section-title">Derivación y tratamiento</div>
+    <div class="grid2">
+      <div class="field full"><label>Se deriva a nivel de especialidad por sospecha diagnóstica <span class="req">*</span></label>
+        <div class="radio-group" id="r-desp-g"><label class="radio-opt"><input type="radio" name="r-desp" value="Sí"> Sí</label><label class="radio-opt"><input type="radio" name="r-desp" value="No"> No</label></div>
+        <span class="error-msg" id="err-r-desp">Selecciona una opción</span>
+      </div>
+      <div class="field"><label>Dispositivo para el tratamiento <span class="req">*</span></label>
+        <div class="radio-group" id="r-disp-g">
+          <label class="radio-opt"><input type="radio" name="r-disp" value="Programa AIDIA" onchange="toggleCond('r-otro-disp',false)"> Programa AIDIA</label>
+          <label class="radio-opt"><input type="radio" name="r-disp" value="Otro" onchange="toggleCond('r-otro-disp',true)"> Otro dispositivo</label>
+        </div>
+        <span class="error-msg" id="err-r-disp">Selecciona una opción</span>
+      </div>
+      <div class="field conditional" id="r-otro-disp"><label>Especifique dispositivo</label><input type="text" id="r-otrodisp" placeholder="Nombre del dispositivo..."></div>
+      <div class="field"><label>Fecha de derivación al dispositivo</label><input type="date" id="r-fechadisp"></div>
+      <div class="field"><label>Se indica tratamiento farmacológico <span class="req">*</span></label>
+        <div class="radio-group" id="r-farm-g"><label class="radio-opt"><input type="radio" name="r-farm" value="Sí"> Sí</label><label class="radio-opt"><input type="radio" name="r-farm" value="No"> No</label></div>
+        <span class="error-msg" id="err-r-farm">Selecciona una opción</span>
+      </div>
+    </div>
+    <div class="section-title">Observación</div>
+    <div class="field"><textarea id="r-obs" placeholder="Escriba aquí cualquier observación relevante..."></textarea></div>
+    <button class="submit-btn purple" onclick="validar('f2')">Registrar referente →</button>
+    <div class="success" id="ok-f2" style="color:var(--purple);background:var(--purple-light)">✅ Referente registrado correctamente en Google Sheets</div>
+  </div>
+  <button class="btn-volver-grande" onclick="goInicio()">🏠 Volver al inicio</button>
+</div>
+
+<!-- ══════════════ FORM 4: APORTE PROFESIONAL ══════════════ -->
+<div id="s-f3" class="screen">
+  <div class="form-card">
+    <span class="badge badge-blue">🔵 APORTE PROFESIONAL</span>
+    <div class="fecha-hoy-bar"><span class="label">📅 Fecha de registro:</span><span class="valor fecha-hoy"></span></div>
+    <div class="alerta-errores" id="ae-f3"><p>⚠️ Por favor completa los campos obligatorios:</p><ul id="le-f3"></ul></div>
+    <div class="section-title">Identificación</div>
+    <div class="grid2">
+      <div class="field"><label>RUT del paciente <span class="req">*</span></label><input type="text" id="ap-rut" placeholder="12345678-9" oninput="formatRut(this)"><span class="error-msg" id="err-ap-rut">Campo obligatorio</span><span class="hint">Sin puntos, con guión</span></div>
+      <div class="field"><label>Nombre del profesional <span class="req">*</span></label><input type="text" id="ap-prof" placeholder="Ej: Ana Martínez"><span class="error-msg" id="err-ap-prof">Campo obligatorio</span></div>
+      <div class="field full"><label>Rol profesional <span class="req">*</span></label>
+        <div class="radio-group" id="ap-rol-g">
+          <label class="radio-opt"><input type="radio" name="ap-rol" value="Médico/a" onchange="toggleOtroRol(false)"> Médico/a</label>
+          <label class="radio-opt"><input type="radio" name="ap-rol" value="Enfermera/o" onchange="toggleOtroRol(false)"> Enfermera/o</label>
+          <label class="radio-opt"><input type="radio" name="ap-rol" value="Fonoaudiólogo/a" onchange="toggleOtroRol(false)"> Fonoaudiólogo/a</label>
+          <label class="radio-opt"><input type="radio" name="ap-rol" value="Parvularia/o" onchange="toggleOtroRol(false)"> Parvularia/o</label>
+          <label class="radio-opt"><input type="radio" name="ap-rol" value="Psicólogo/a" onchange="toggleOtroRol(false)"> Psicólogo/a</label>
+          <label class="radio-opt"><input type="radio" name="ap-rol" value="Otro" onchange="toggleOtroRol(true)"> Otro</label>
+        </div>
+        <div class="otro-rol-wrap" id="otro-rol-wrap"><input type="text" id="ap-otro-rol" placeholder="Especifique su rol..."></div>
+        <span class="error-msg" id="err-ap-rol">Selecciona un rol</span>
+      </div>
+    </div>
+    <div class="section-title">Áreas con hallazgos <span style="font-size:11px;font-weight:400;text-transform:none">— Selecciona las que apliquen</span></div>
+    <div class="areas-grid">
+      <div class="area-block" id="area-0"><div class="area-header" onclick="toggleArea(0)"><input type="checkbox" id="chk-0" onclick="event.stopPropagation()"><span>Comunicación y lenguaje</span></div><div class="area-detail"><textarea placeholder="Describe los hallazgos..."></textarea></div></div>
+      <div class="area-block" id="area-1"><div class="area-header" onclick="toggleArea(1)"><input type="checkbox" id="chk-1" onclick="event.stopPropagation()"><span>Comunicación no verbal</span></div><div class="area-detail"><textarea placeholder="Describe los hallazgos..."></textarea></div></div>
+      <div class="area-block" id="area-2"><div class="area-header" onclick="toggleArea(2)"><input type="checkbox" id="chk-2" onclick="event.stopPropagation()"><span>Interacción social</span></div><div class="area-detail"><textarea placeholder="Describe los hallazgos..."></textarea></div></div>
+      <div class="area-block" id="area-3"><div class="area-header" onclick="toggleArea(3)"><input type="checkbox" id="chk-3" onclick="event.stopPropagation()"><span>Conductas restrictivas o repetitivas</span></div><div class="area-detail"><textarea placeholder="Describe los hallazgos..."></textarea></div></div>
+      <div class="area-block" id="area-4"><div class="area-header" onclick="toggleArea(4)"><input type="checkbox" id="chk-4" onclick="event.stopPropagation()"><span>Perfil sensorial</span></div><div class="area-detail"><textarea placeholder="Describe los hallazgos..."></textarea></div></div>
+      <div class="area-block" id="area-5"><div class="area-header" onclick="toggleArea(5)"><input type="checkbox" id="chk-5" onclick="event.stopPropagation()"><span>Regulación emocional y conductual</span></div><div class="area-detail"><textarea placeholder="Describe los hallazgos..."></textarea></div></div>
+      <div class="area-block" id="area-6"><div class="area-header" onclick="toggleArea(6)"><input type="checkbox" id="chk-6" onclick="event.stopPropagation()"><span>Neurodesarrollo</span></div><div class="area-detail"><textarea placeholder="Describe los hallazgos..."></textarea></div></div>
+      <div class="area-block" id="area-7"><div class="area-header" onclick="toggleArea(7)"><input type="checkbox" id="chk-7" onclick="event.stopPropagation()"><span>Funcionamiento adaptativo</span></div><div class="area-detail"><textarea placeholder="Describe los hallazgos..."></textarea></div></div>
+      <div class="area-block" id="area-8"><div class="area-header" onclick="toggleArea(8)"><input type="checkbox" id="chk-8" onclick="event.stopPropagation()"><span>Otro</span></div><div class="area-detail"><input type="text" placeholder="Especifique el área..."><textarea placeholder="Describe los hallazgos..."></textarea></div></div>
+    </div>
+    <button class="submit-btn blue" onclick="validar('f3')">Enviar aporte →</button>
+    <div class="success" id="ok-f3" style="color:var(--blue);background:var(--blue-light)">✅ Aporte registrado correctamente en Google Sheets</div>
+  </div>
+  <button class="btn-volver-grande" onclick="goInicio()">🏠 Volver al inicio</button>
+</div>
+
+</div><!-- /main -->
+
 <script>
-// ══════════════════════════════════════════════
-// ⚠️  REEMPLAZA ESTA URL CON LA DE TU SCRIPT
-// (la obtienes al hacer "Implementar" en Apps Script)
-// ══════════════════════════════════════════════
+// ══ CONFIG ══
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyu5KjtPu0ny5zs-ifhS5FBA0jSnGKHpvS4BwRa26Anrp_mtp9-F4h0xSs2q1mGzVeL2g/exec';
 
-// Verificar URL al cargar
-window.addEventListener('load', () => {
-  if (SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbyu5KjtPu0ny5zs-ifhS5FBA0jSnGKHpvS4BwRa26Anrp_mtp9-F4h0xSs2q1mGzVeL2g/exec') {
-    document.getElementById('alert-url').classList.add('visible');
+// ══ FECHA ══
+const hoy=new Date();
+const fechaStr=hoy.toLocaleDateString('es-CL',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+const fechaCorta=hoy.toLocaleDateString('es-CL');
+document.getElementById('fecha-bienvenida').textContent=fechaStr;
+document.querySelectorAll('.fecha-hoy').forEach(el=>el.textContent=fechaStr);
+
+// ══ NAVEGACIÓN ══
+function goScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function goInicio(){
+  goScreen('s-inicio');
+  document.getElementById('rut-buscar').value='';
+  document.getElementById('res-ok').style.display='none';
+  document.getElementById('res-no').style.display='none';
+}
+
+// ══ UTILIDADES ══
+function formatRut(input){
+  let v=input.value.replace(/[^0-9kK]/g,'');
+  if(v.length>1)input.value=v.slice(0,-1)+'-'+v.slice(-1);
+  else input.value=v;
+}
+function calcAge(dobId,ageId){
+  const dob=document.getElementById(dobId).value;
+  const el=document.getElementById(ageId);
+  if(!dob){el.textContent='— años';return;}
+  const today=new Date(),birth=new Date(dob);
+  let age=today.getFullYear()-birth.getFullYear();
+  const m=today.getMonth()-birth.getMonth();
+  if(m<0||(m===0&&today.getDate()<birth.getDate()))age--;
+  if(age<0||age>120){el.textContent='— años';return;}
+  if(age<2){const months=today.getMonth()-birth.getMonth()+12*(today.getFullYear()-birth.getFullYear());el.textContent=months+' meses';}
+  else el.textContent=age+' años';
+}
+function toggleCond(id,show){
+  const el=document.getElementById(id);
+  if(el.classList.contains('fecha-aidia-wrap')||el.classList.contains('conditional')){
+    el.classList.toggle('activo',show);
+  } else {
+    el.classList.toggle('activo',show);
   }
+  if(!show){const inp=el.querySelector('input');if(inp)inp.value='';}
+}
+function toggleOtroS(chk){
+  document.getElementById('s-otro-wrap').classList.toggle('visible',chk.checked);
+  if(!chk.checked)document.getElementById('s-otro-txt').value='';
+}
+function toggleOtroRol(show){
+  document.getElementById('otro-rol-wrap').classList.toggle('visible',show);
+  if(!show)document.getElementById('ap-otro-rol').value='';
+}
+function toggleArea(idx){
+  const block=document.getElementById('area-'+idx);
+  const chk=document.getElementById('chk-'+idx);
+  chk.checked=!chk.checked;
+  block.classList.toggle('activo',chk.checked);
+}
+document.querySelectorAll('.area-header input[type=checkbox]').forEach((chk,idx)=>{
+  chk.addEventListener('change',()=>document.getElementById('area-'+idx).classList.toggle('activo',chk.checked));
 });
+function radioVal(name){const el=document.querySelector(`input[name="${name}"]:checked`);return el?el.value:'';}
 
-// Fecha de hoy
-const hoy = new Date();
-const fechaStr = hoy.toLocaleDateString('es-CL', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
-const fechaCorta = hoy.toLocaleDateString('es-CL');
-document.querySelectorAll('.fecha-hoy').forEach(el => el.textContent = fechaStr);
-
-// Navegación
-function goTo(id) {
-  document.getElementById('selector-view').style.display = 'none';
-  document.querySelectorAll('.form-view').forEach(f => f.style.display = 'none');
-  document.getElementById(id).style.display = 'block';
-  window.scrollTo({top: 0, behavior: 'smooth'});
-}
-function goBack() {
-  document.querySelectorAll('.form-view').forEach(f => f.style.display = 'none');
-  document.getElementById('selector-view').style.display = 'block';
-  window.scrollTo({top: 0, behavior: 'smooth'});
-}
-
-// Utilidades
-function calcAge(dobId, ageId) {
-  const dob = document.getElementById(dobId).value;
-  const el = document.getElementById(ageId);
-  if (!dob) { el.textContent = '— años'; return; }
-  const today = new Date(), birth = new Date(dob);
-  let age = today.getFullYear() - birth.getFullYear();
-  const m = today.getMonth() - birth.getMonth();
-  if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
-  if (age < 0 || age > 120) { el.textContent = '— años'; return; }
-  if (age < 2) {
-    const months = today.getMonth() - birth.getMonth() + 12 * (today.getFullYear() - birth.getFullYear());
-    el.textContent = months + ' meses';
-  } else el.textContent = age + ' años';
-}
-function formatRut(input) {
-  let v = input.value.replace(/[^0-9kK]/g, '');
-  if (v.length > 1) { let body = v.slice(0,-1).replace(/\B(?=(\d{3})+(?!\d))/g,'.'); input.value = body + '-' + v.slice(-1); }
-  else input.value = v;
-}
-function formatRutSinPuntos(input) {
-  let v = input.value.replace(/[^0-9kK]/g, '');
-  if (v.length > 1) input.value = v.slice(0,-1) + '-' + v.slice(-1);
-  else input.value = v;
-}
-function toggleAidia(show) {
-  const w = document.getElementById('fecha-aidia-wrap');
-  w.classList.toggle('activo', show);
-  if (!show) document.getElementById('fecha-aidia').value = '';
-}
-function toggleOtro(chk) {
-  const w = document.getElementById('otro-text-wrap');
-  w.classList.toggle('visible', chk.checked);
-  if (!chk.checked) document.getElementById('otro-text').value = '';
-}
-function toggle(id, show) {
-  const el = document.getElementById(id);
-  el.classList.toggle('activo', show);
-  if (!show) { const inp = el.querySelector('input'); if (inp) inp.value = ''; }
-}
-function toggleOtroDisp(show) {
-  const el = document.getElementById('otro-disp-wrap');
-  el.classList.toggle('activo', show);
-  if (!show) { const inp = el.querySelector('input'); if (inp) inp.value = ''; }
-}
-function radioVal(name) {
-  const el = document.querySelector(`input[name="${name}"]:checked`);
-  return el ? el.value : '';
-}
-function ageText(id) {
-  return document.getElementById(id).textContent.replace('— años','');
+// ══ BUSCADOR ══
+const bdSimulada={
+  '12345678-9':[{hoja:'Diagnóstico Confirmado',color:'green',emoji:'✅',fecha:'10-05-2026'}],
+  '98765432-1':[{hoja:'Sospecha Diagnóstica',color:'amber',emoji:'🔍',fecha:'02-04-2026'},{hoja:'Aporte Profesional',color:'blue',emoji:'🔵',fecha:'15-04-2026'}],
+};
+function buscar(){
+  const rut=document.getElementById('rut-buscar').value.trim();
+  if(!rut){document.getElementById('rut-buscar').focus();return;}
+  document.getElementById('res-ok').style.display='none';
+  document.getElementById('res-no').style.display='none';
+  // En producción: fetch a SCRIPT_URL con {tipo:'buscar',rut}
+  setTimeout(()=>{
+    const registros=bdSimulada[rut];
+    if(registros){
+      document.getElementById('rut-ok').textContent=rut;
+      document.getElementById('hojas-list').innerHTML=registros.map(r=>`<div class="hoja-row ${r.color}"><span>${r.emoji} ${r.hoja}</span><span class="fecha">Registrado: ${r.fecha}</span></div>`).join('');
+      document.getElementById('res-ok').style.display='block';
+    } else {
+      document.getElementById('rut-no').textContent=rut;
+      document.getElementById('res-no').style.display='block';
+    }
+  },300);
 }
 
-// Envío genérico
-async function enviar(data, btnId, sendingId, okId) {
-  const btn = document.getElementById(btnId);
-  const sending = document.getElementById(sendingId);
-  const ok = document.getElementById(okId);
-  btn.disabled = true;
-  sending.style.display = 'block';
-  try {
-    await fetch(SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-    sending.style.display = 'none';
-    ok.style.display = 'block';
-    setTimeout(() => {
-      ok.style.display = 'none';
-      btn.disabled = false;
-      resetForm(formId);
-      goBack();
-    }, 2500);
-  } catch (err) {
-    sending.style.display = 'none';
-    alert('❌ Error al guardar. Verifica tu conexión a internet.');
-    btn.disabled = false;
+// ══ VALIDACIÓN ══
+let formActual='';
+function limpiarErrores(form){
+  document.querySelectorAll(`#s-${form} .error-msg`).forEach(e=>e.classList.remove('visible'));
+  document.querySelectorAll(`#s-${form} input.error`).forEach(e=>e.classList.remove('error'));
+  document.querySelectorAll(`#s-${form} .error-group`).forEach(e=>e.classList.remove('error-group'));
+  document.getElementById(`ae-${form}`).classList.remove('visible');
+}
+function addErr(errores,inputId,errId,msg){
+  if(inputId)document.getElementById(inputId).classList.add('error');
+  document.getElementById(errId).classList.add('visible');
+  errores.push(msg);
+}
+function addErrGroup(errores,groupId,errId,msg){
+  document.getElementById(groupId).classList.add('error-group');
+  document.getElementById(errId).classList.add('visible');
+  errores.push(msg);
+}
+function mostrarAlertas(form,errores){
+  document.getElementById(`le-${form}`).innerHTML=errores.map(e=>`<li>${e}</li>`).join('');
+  document.getElementById(`ae-${form}`).classList.add('visible');
+  document.getElementById(`ae-${form}`).scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function validar(form){
+  limpiarErrores(form);
+  const errores=[];
+  formActual=form;
+
+  if(form==='f0'){
+    const rut=document.getElementById('d-rut').value.trim();
+    if(!rut)addErr(errores,'d-rut','err-d-rut','RUT');
+    if(!document.getElementById('d-dob').value)addErr(errores,'d-dob','err-d-dob','Fecha de nacimiento');
+    if(!radioVal('d-sector'))addErrGroup(errores,'d-sector-g','err-d-sector','Sector');
+    if(!document.getElementById('d-deriva').value.trim())addErr(errores,'d-deriva','err-d-deriva','Nombre de quien deriva');
+    if(!radioVal('d-diag'))addErrGroup(errores,'d-diag-g','err-d-diag','Diagnóstico confirmado');
+    if(!radioVal('d-ctrl'))addErrGroup(errores,'d-ctrl-g','err-d-ctrl','Controles al día');
+    if(!radioVal('d-aidia'))addErrGroup(errores,'d-aidia-g','err-d-aidia','Derivación a sala AIDIA');
+    if(errores.length>0){mostrarAlertas(form,errores);return;}
+    document.getElementById('modal-rut').textContent=rut;
   }
-}
-
-// ── ENVIAR DIAGNÓSTICO ──
-function enviarDiagnostico() {
-  enviar({
-    tipo: 'diagnostico',
-    fechaRegistro: fechaCorta,
-    nombre: document.getElementById('d-nombre').value,
-    rut: document.getElementById('d-rut').value,
-    telefono: document.getElementById('d-telefono').value,
-    fechaNacimiento: document.getElementById('dob1').value,
-    edad: ageText('age1'),
-    direccion: document.getElementById('d-direccion').value,
-    sector: radioVal('sector1'),
-    quienDeriva: document.getElementById('d-deriva').value,
-    dgConfirmado: radioVal('diag1'),
-    controlesAlDia: radioVal('ctrl1'),
-    derivacionAidia: radioVal('aidia1'),
-    fechaAidia: document.getElementById('fecha-aidia').value
-  }, 'btn-diag', 'sending-diag', 'ok0');
-}
-
-// ── ENVIAR SOSPECHA ──
-function enviarSospecha() {
-  const motivos = [...document.querySelectorAll('.motivo:checked')].map(c => c.value).join(', ');
-  const otroTexto = document.getElementById('otro-text').value;
-  enviar({
-    tipo: 'sospecha',
-    fechaRegistro: fechaCorta,
-    nombre: document.getElementById('s-nombre').value,
-    rut: document.getElementById('s-rut').value,
-    telefono: document.getElementById('s-telefono').value,
-    fechaNacimiento: document.getElementById('dob2').value,
-    edad: ageText('age2'),
-    direccion: document.getElementById('s-direccion').value,
-    sector: radioVal('sector2'),
-    quienDeriva: document.getElementById('s-deriva').value,
-    motivoSospecha: motivos,
-    otroMotivo: otroTexto,
-    controlesAlDia: radioVal('ctrl2'),
-    fechaDerivacion: document.getElementById('s-fderiva').value,
-    mchat: radioVal('mchat')
-  }, 'btn-sosp', 'sending-sosp', 'ok1');
-}
-
-// ── ENVIAR REFERENTE ──
-function enviarReferente() {
-  enviar({
-    tipo: 'referente',
-    fechaRegistro: fechaCorta,
-    rut: document.getElementById('r-rut').value,
-    edad: document.getElementById('r-edad').value,
-    sexo: radioVal('sexo'),
-    pie: radioVal('pie'),
-    lugarSospecha: document.getElementById('r-lugar').value,
-    fechaInicioEval: document.getElementById('r-fechaeval').value,
-    confirmaAutismo: radioVal('conf-autismo'),
-    fechaConfAutismo: document.getElementById('r-fechaaut').value,
-    confirmaOtroDg: radioVal('conf-otro-dg'),
-    fechaConfOtroDg: document.getElementById('r-fechaotrodg').value,
-    derivaEspecialidad: radioVal('deriva-esp'),
-    dispositivo: radioVal('dispositivo'),
-    otroDispositivo: document.getElementById('r-otrodisp').value,
-    fechaDerivDispositivo: document.getElementById('r-fechadisp').value,
-    farmacologico: radioVal('farmaco'),
-    observacion: document.getElementById('r-obs').value
-  }, 'btn-ref', 'sending-ref', 'ok2');
-}
-
-// ── Reset formulario completo ──
-function resetForm(formId) {
-  const form = document.getElementById(formId);
-  // Limpiar inputs y textareas
-  form.querySelectorAll('input:not([readonly])').forEach(i => {
-    if (i.type === 'radio' || i.type === 'checkbox') i.checked = false;
-    else i.value = '';
-  });
-  form.querySelectorAll('textarea').forEach(t => t.value = '');
-  form.querySelectorAll('select').forEach(s => s.selectedIndex = 0);
-  // Resetear displays de edad
-  if (formId === 'f0') document.getElementById('age1').textContent = '— años';
-  if (formId === 'f1') {
-    document.getElementById('age2').textContent = '— años';
-    document.getElementById('otro-text-wrap').classList.remove('visible');
-    document.getElementById('otro-text').value = '';
+  else if(form==='f1'){
+    const rut=document.getElementById('s-rut').value.trim();
+    if(!rut)addErr(errores,'s-rut','err-s-rut','RUT');
+    if(!document.getElementById('s-dob').value)addErr(errores,'s-dob','err-s-dob','Fecha de nacimiento');
+    if(!radioVal('s-sector'))addErrGroup(errores,'s-sector-g','err-s-sector','Sector');
+    if(!document.getElementById('s-deriva').value.trim())addErr(errores,'s-deriva','err-s-deriva','Nombre de quien deriva');
+    const motivos=[...document.querySelectorAll('.s-motivo:checked')];
+    if(motivos.length===0){document.getElementById('err-s-motivo').classList.add('visible');errores.push('Motivo de sospecha');}
+    if(!radioVal('s-ctrl'))addErrGroup(errores,'s-ctrl-g','err-s-ctrl','Controles al día');
+    if(errores.length>0){mostrarAlertas(form,errores);return;}
+    document.getElementById('modal-rut').textContent=rut;
   }
-  // Resetear condicionales
-  document.querySelectorAll('#' + formId + ' .conditional').forEach(el => el.classList.remove('activo'));
-  const aidia = document.getElementById('fecha-aidia-wrap');
-  if (aidia) aidia.classList.remove('activo');
-  const otroDisp = document.getElementById('otro-disp-wrap');
-  if (otroDisp) otroDisp.classList.remove('activo');
+  else if(form==='f2'){
+    const rut=document.getElementById('r-rut').value.trim();
+    if(!rut)addErr(errores,'r-rut','err-r-rut','RUT');
+    if(!document.getElementById('r-edad').value)addErr(errores,'r-edad','err-r-edad','Edad');
+    if(!radioVal('r-sexo'))addErrGroup(errores,'r-sexo-g','err-r-sexo','Sexo');
+    if(!radioVal('r-pie'))addErrGroup(errores,'r-pie-g','err-r-pie','Usuario/a de PIE');
+    if(!document.getElementById('r-lugar').value)addErr(errores,'r-lugar','err-r-lugar','Lugar de sospecha');
+    if(!radioVal('r-autismo'))addErrGroup(errores,'r-aut-g','err-r-aut','Se confirma autismo');
+    if(!radioVal('r-otrodg'))addErrGroup(errores,'r-otrodg-g','err-r-otrodg','Otro Dg neurodesarrollo');
+    if(!radioVal('r-desp'))addErrGroup(errores,'r-desp-g','err-r-desp','Deriva a especialidad');
+    if(!radioVal('r-disp'))addErrGroup(errores,'r-disp-g','err-r-disp','Dispositivo tratamiento');
+    if(!radioVal('r-farm'))addErrGroup(errores,'r-farm-g','err-r-farm','Tratamiento farmacológico');
+    if(errores.length>0){mostrarAlertas(form,errores);return;}
+    document.getElementById('modal-rut').textContent=rut;
+  }
+  else if(form==='f3'){
+    const rut=document.getElementById('ap-rut').value.trim();
+    if(!rut)addErr(errores,'ap-rut','err-ap-rut','RUT del paciente');
+    if(!document.getElementById('ap-prof').value.trim())addErr(errores,'ap-prof','err-ap-prof','Nombre del profesional');
+    if(!radioVal('ap-rol'))addErrGroup(errores,'ap-rol-g','err-ap-rol','Rol profesional');
+    if(errores.length>0){mostrarAlertas(form,errores);return;}
+    document.getElementById('modal-rut').textContent=rut;
+  }
+  document.getElementById('btn-modal-confirmar').onclick=()=>confirmarEnvio(form);
+  document.getElementById('modal').classList.add('visible');
+}
+
+// ══ MODAL ══
+function cerrarModal(){document.getElementById('modal').classList.remove('visible');}
+async function confirmarEnvio(form){
+  cerrarModal();
+  const data=recopilarDatos(form);
+  const card=document.querySelector(`#s-${form} .form-card`);
+  const ok=document.getElementById(`ok-${form}`);
+  card.style.opacity='0.3';card.style.pointerEvents='none';
+  try{
+    await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+  }catch(e){}
+  ok.style.display='block';
+  setTimeout(()=>{
+    ok.style.display='none';
+    card.style.opacity='1';card.style.pointerEvents='auto';
+    resetForm(form);
+    goInicio();
+  },2500);
+}
+
+// ══ RECOPILAR DATOS ══
+function recopilarDatos(form){
+  if(form==='f0') return {tipo:'diagnostico',fechaRegistro:fechaCorta,rut:document.getElementById('d-rut').value,fechaNacimiento:document.getElementById('d-dob').value,edad:document.getElementById('d-age').textContent,telefono:document.getElementById('d-tel').value,direccion:document.getElementById('d-dir').value,sector:radioVal('d-sector'),quienDeriva:document.getElementById('d-deriva').value,dgConfirmado:radioVal('d-diag'),controlesAlDia:radioVal('d-ctrl'),derivacionAidia:radioVal('d-aidia'),fechaAidia:document.getElementById('d-fecha-aidia').value};
+  if(form==='f1'){const motivos=[...document.querySelectorAll('.s-motivo:checked')].map(c=>c.value).join(', ');return{tipo:'sospecha',fechaRegistro:fechaCorta,rut:document.getElementById('s-rut').value,fechaNacimiento:document.getElementById('s-dob').value,edad:document.getElementById('s-age').textContent,telefono:document.getElementById('s-tel').value,direccion:document.getElementById('s-dir').value,sector:radioVal('s-sector'),quienDeriva:document.getElementById('s-deriva').value,motivoSospecha:motivos,otroMotivo:document.getElementById('s-otro-txt').value,controlesAlDia:radioVal('s-ctrl'),fechaDerivacion:document.getElementById('s-fderiva').value,mchat:radioVal('s-mchat')};}
+  if(form==='f2') return{tipo:'referente',fechaRegistro:fechaCorta,rut:document.getElementById('r-rut').value,edad:document.getElementById('r-edad').value,sexo:radioVal('r-sexo'),pie:radioVal('r-pie'),lugarSospecha:document.getElementById('r-lugar').value,fechaInicioEval:document.getElementById('r-fechaeval').value,confirmaAutismo:radioVal('r-autismo'),fechaConfAutismo:document.getElementById('r-fechaaut').value,confirmaOtroDg:radioVal('r-otrodg'),fechaConfOtroDg:document.getElementById('r-fechaotrodg').value,derivaEspecialidad:radioVal('r-desp'),dispositivo:radioVal('r-disp'),otroDispositivo:document.getElementById('r-otrodisp').value,fechaDerivDispositivo:document.getElementById('r-fechadisp').value,farmacologico:radioVal('r-farm'),observacion:document.getElementById('r-obs').value};
+  if(form==='f3'){const areas=[];for(let i=0;i<9;i++){const chk=document.getElementById('chk-'+i);if(chk.checked){const block=document.getElementById('area-'+i);const txts=block.querySelectorAll('textarea,input[type=text]');const nombre=i===8?(txts[0]?txts[0].value:'Otro'):'';const desc=txts[i===8?1:0]?txts[i===8?1:0].value:'';areas.push({area:nombre||chk.closest('.area-block').querySelector('span').textContent,descripcion:desc});}}return{tipo:'aporte',fechaRegistro:fechaCorta,rut:document.getElementById('ap-rut').value,profesional:document.getElementById('ap-prof').value,rol:radioVal('ap-rol')||document.getElementById('ap-otro-rol').value,areas:JSON.stringify(areas)};}
+}
+
+// ══ RESET ══
+function resetForm(form){
+  const s=document.getElementById('s-'+form);
+  s.querySelectorAll('input:not([readonly])').forEach(i=>{if(i.type==='radio'||i.type==='checkbox')i.checked=false;else i.value='';});
+  s.querySelectorAll('textarea').forEach(t=>t.value='');
+  s.querySelectorAll('select').forEach(sl=>sl.selectedIndex=0);
+  ['d-age','s-age'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='— años';});
+  s.querySelectorAll('.conditional,.fecha-aidia-wrap').forEach(el=>el.classList.remove('activo'));
+  s.querySelectorAll('.otro-input,.otro-rol-wrap').forEach(el=>el.classList.remove('visible'));
+  s.querySelectorAll('.area-block').forEach(el=>el.classList.remove('activo'));
+  limpiarErrores(form);
 }
 </script>
 </body>
